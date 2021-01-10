@@ -1,0 +1,68 @@
+
+#import <AVFoundation/AVFoundation.h>
+音频编程知识整理
+录音类 AVAudioSessionCategoryRecord 或者 AVAudioSessionCategoryPlayAndRecord 
+备注：AVAudioSessionCategoryRecord 只是使用录音通道，设置了之后只能录音，不能播放音频。
+也可以使用AVAudioSessionCategoryPlayAndRecord 可以一边播放一边录音，有语音唤醒的应用一般需要使用这个category
+
+/**音频属性设置的值，字典形式设置*/ 
+
+/**音频格式设置**/
+AVFormatIDKey  格式标识符 kAudioFormatMPEG4AAC  -》aac
+
+AVSampleRateKey 用于定义录音的采样率 8000(AM广播类型的录制效果) 16000，22050或者44100(CD质量的采样率)
+
+AVNumberOfChannelsKey 用于设置录音时的通道数。设置默认值1为单声道录制，设置为2意味着使用立体声录制。除非使用外设进行录制，否则应设置为1。
+
+/**编码设置**/
+AVEncoderAudioQualityKey 编码质量，值为AVAudioQuality
+
+AVEncoderBitRateKey  编码比特率，值为整数
+
+AVEncoderBitRatePerChannelKey 标识每个通道的编码比特率。
+
+注意：AVEncoderBitRateKey和AVEncoderBitRatePerChannelKey只需要设置一个
+
+AVEncoderBitRateStrategyKey  编码比特率的策略 取值为AVAudioBitRateStrategy（AVAudioBitRateStrategy_Constant， AVAudioBitRateStrategy_LongTermAverage， AVAudioBitRateStrategy_VariableConstrained，AVAudioBitRateStrategy_Variable）
+
+
+AVEncoderAudioQualityForVBRKey 动态比特率，只和AVAudioBitRateStrategy_Variable有关 值为 AVAudioQuality
+
+AVEncoderBitDepthHintKey  编码位数(位深度)。值为8~32。这个数值越大，解析度就越高，录制和回放的声音就越真实
+
+
+
+/**线性PCM音频格式设置**/
+AVLinearPCMBitDepthKey  一个NSNumber整数，指示线性PCM音频格式的位深度，值为8、16、24或32之一。
+
+AVLinearPCMIsBigEndianKey 一个布尔值，指示音频格式是大端（YES）还是小端（NO）。
+
+AVLinearPCMIsFloatKey     一个布尔值，指示音频格式是浮点（YES）还是定点（NO）。
+
+AVLinearPCMIsNonInterleaved  一个布尔值，指示音频格式是非交错（YES）还是交错（NO）。
+
+
+/**采样率转换设置**/
+AVSampleRateConverterAudioQualityKey  音频采用率质量（录音采样质量）值为 AVAudioQuality
+
+AVSampleRateConverterAlgorithmKey  采样率转化算法， 值为 AVSampleRateConverterAlgorithm字符串（AVSampleRateConverterAlgorithm_Normal， AVSampleRateConverterAlgorithm_Mastering， AVSampleRateConverterAlgorithm_MinimumPhase）
+
+
+
+
+
+
+
+/**AVAudioBitRateStrategy 比特率的策略**/
+// 常数策略
+extern NSString *const AVAudioBitRateStrategy_Constant;                                
+// 长期平均值策略
+extern NSString *const AVAudioBitRateStrategy_LongTermAverage;                
+// 受约束的变量值策略
+extern NSString *const AVAudioBitRateStrategy_VariableConstrained;  
+// 变量值策略
+extern NSString *const AVAudioBitRateStrategy_Variable;        
+
+
+
+
